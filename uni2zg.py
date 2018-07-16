@@ -25,6 +25,7 @@ def convert(input):
     zero = u'\u1040'
  #---------------------------------------------------------------------------------------
     output = input
+    output = output.replace(u'\u100b\u1039\u100c', u'\u1092')
     output = output.replace(u'\u1039\u1000', u'\u1060')
     output = output.replace(u'\u1039\u1001', u'\u1061')
     output = output.replace(u'\u1039\u1002', u'\u1062')
@@ -52,12 +53,14 @@ def convert(input):
 
     #-------------------------------------------------------------------------------------------------------------------------------
     output = output.replace(u'\u100F\u103A\u100D', u'\u1091')
+    output = output.replace(u'\u100d\u1039\u100e', u'\u106f')
     output = output.replace(u'\u103A', u'\u1039')#a-that
     output = output.replace(u'\u103B', u'\u103A')#ya-pint
     output = output.replace(u'\u103C', u'\u103B')#ya-yit
     output = output.replace(u'\u103D', u'\u103C')#wa-swae
     output = output.replace(u'\u103E', u'\u103D')#ha-htoe
     output = output.replace(u'\u103F', u'\u1086')#ta-gyi
+
     output = output.replace(u'\u1040', u'\u101D') #wa
     #output = output.replace(u'\u1039\u1004\u103A', u'\u1064')
     output = output.replace(u'\u1009\u1039', u'\u106A\u1039')#nyalay-that
@@ -88,11 +91,11 @@ def convert(input):
     output = output.replace(u'\u1014\u102D\u102F', u'\u108F\u102D\u102F')  # nange-tachaung lonetin
 
 #----------------------ya-----------------------------------------------------------------------------------------------
-    output = output.replace(u'\u101B\u103D', u'\u1090\u103D')  # ya-hatoe
+    #output = output.replace(u'\u101B\u103D', u'\u1090\u103D')  # ya-hatoe
     output = output.replace(u'\u101B\u103C', u'\u1090\u103C')  # ya-waswae
     output = output.replace(u'\u101B\u102F', u'\u1090\u102F')  # ya-tachaung
     output = output.replace(u'\u101B\u102D\u102F', u'\u1090\u102D\u102F')  # ya-tachaung lonetin
-    output = output.replace(u'\u101B\u108A', u'\u1090\u108A')  # ya-tachaung lonetin
+    output = output.replace(u'\u101B\u108A', u'\u1090\u108A')  # ya-tachaung lonetini
 #-----------------------tachaung-nachaung-------------------------------------------------------------------------------
     output = re.sub(u'\u103B\u102F', u'\u103B\u1033', output)#yit-tachaung
     output = re.sub(u'\u103B\u1030', u'\u103B\u1034', output) #yit-nachaung
@@ -115,7 +118,7 @@ def convert(input):
     output = re.sub(u'(\u1090)(\u108A)(\u1031)', u"\\3\\1\\2", output)  # tawai-nagnge-swae-htoe
     output = re.sub(u'([\u1000-\u1021])([\u108A])(\u1031)', u"\\3\\1\\2", output)#tawai-byee-swae-htoe
     output = re.sub(u'([\u1000-\u1021])(\u103A)(\u103D)(\u1031)', u"\\4\\1\\2\\3", output)  # tawai-yapint-byee
-
+    output = re.sub(u'\u1014([\u1070-\u107c])', u'\u108f\\1', output)
 #-------------------------------out myit-------------------------------------------------------------------------------
     output = re.sub(u'\u1030\u1037', u'\u1030\u1094', output)  # out-myit nachaung
     output = re.sub(u'\u103C\u1037', u'\u103C\u1095', output)  # out-myit waswae
@@ -124,7 +127,7 @@ def convert(input):
     output = re.sub(u'\u103C\u1032\u1037', u'\u103C\u1032\u1094', output)  # out-myit nouthtoe waswae
     output = re.sub(u'\u103C\u1036\u1037', u'\u103C\u1036\u1095', output)  # out-myit taetin waswae
     output = re.sub(u'\u1036\u1088\u1037', u'\u1036\u1088\u1095', output)  # out-myit hahtoe nachaung
-    output = re.sub(u'(\u103D)(\u1036)(\u102F)(\u1037)', u'\\1\\2\\3\u1094', output)  # out-myit hahtoe nachaung
+    output = re.sub(u'(\u103D)(\u1036)(\u102F)\u1037', u'\\1\\2\\3\u1094', output)  # out-myit hahtoe nachaung
     output = re.sub(u'\u1014\u1037', u'\u1014\u1094', output)  # autmyint-nange
     #------------------------twae----------------------------------------------------------------------------------
     output = output.replace(u'\u102B\u1039', u'\u105A')#yaecha-shaehtoe
@@ -140,12 +143,18 @@ def convert(input):
     output = re.sub(u'([\u1085\u1093])((?:[\u102D\u102E])?)\u1030', u'\\1\\2\u1034', output)  # sint lonetin chaungnin
     output = output.replace(u'(\u103A)(\u103D)((?:\u102D)?)(', u'\u107D\u103D')#pint-htoe
     #output = output.replace(u'\u103C\u103D', u'\u108A')
-#-------------------yitgyi-------------------------------------------------------------------------------------------
 
-    output = re.sub(u'\u103B\u1000', u'\u107E\u1000', output)
-    output = re.sub(u'\u103B\u1006', u'\u107E\u1006', output)
-    output = re.sub(u'\u103B\u1010', u'\u107E\u1010', output)
-#--------------yitgyi-lonetin-waswae-------------------------------------------------------------
+
+    #-------------------yitgyilonegyitin-----------------------------------------------------------------------------------------------
+    output = re.sub(u'\u103b(\u1000)([\u1036\u102D\u102E])', u'\u1080\\1\\2', output)
+    output = re.sub(u'\u103b(\u1006)([\u1036\u102D\u102E])', u'\u1080\\1\\2', output)
+    output = re.sub(u'\u103b(\u1010)([\u1036\u102D\u102E])', u'\u1080\\1\\2', output)
+    # -------------------yitgyi-------------------------------------------------------------------------------------------
+
+    output = re.sub(u'\u103b\u1000', u'\u107E\u1000', output)
+    output = re.sub(u'\u103b\u1006', u'\u107E\u1006', output)
+    output = re.sub(u'\u103b\u1010', u'\u107E\u1010', output)
+    # --------------yitgyi-lonetin-waswae-------------------------------------------------------------
     output = re.sub(u'\u107E\u1000\u103C\u102D', u'\u1084\u1000\u103C\u102D', output)
     output = re.sub(u'\u107E\u1006\u103C\u102D', u'\u1084\u1006\u103C\u102D', output)
     output = re.sub(u'\u107E\u1010\u103C\u102D', u'\u1084\u1010\u103C\u102D', output)
@@ -153,40 +162,31 @@ def convert(input):
     output = re.sub(u'\u107E\u1006\u103C\u102E', u'\u1084\u1006\u103C\u102E', output)
     output = re.sub(u'\u107E\u1010\u103C\u102E', u'\u1084\u1010\u103C\u102E', output)
 
-    #-------------------yitgyilonegyitin-----------------------------------------------------------------------------------------------
-    output = re.sub(u'\u107E(\u1000)((?:\u1036)?)((?:\u102D)?)((?:\u102E)?)', u'\u1080\\1\\2\\3\\4', output)
-    output = re.sub(u'\u107E(\u1006)((?:\u1036)?)((?:\u102D)?)((?:\u102E)?)', u'\u1080\\1\\2\\3\\4', output)
-    output = re.sub(u'\u107E(\u1010)((?:\u1036)?)((?:\u102D)?)((?:\u102E)?)', u'\u1080\\1\\2\\3\\4', output)
     #-------------------------yayutgi-waswae-------------------------------------------------------------------------------------------------------------------
     output = re.sub(u'\u107E\u1000\u103C', u'\u1082\u1000\u103C', output)
     output = re.sub(u'\u107E\u1006\u103C', u'\u1082\u1006\u103C', output)
     output = re.sub(u'\u107E\u1010\u103C', u'\u1082\u1010\u103C', output)
+    output = re.sub(u'\u107E\u1010([\u1070-\u107c])', u'\u1082\u1010([\u1070-\u107c])', output)
 #---------------------------------yitlay-lonetin-waswae------------------------------------------ -----------------------------------------
-    output = re.sub(u'\u103B\u1001\u103C\u102D', u'\u1083\u1001\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1002\u103C\u102D', u'\u1083\u1002\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1004\u103C\u102D', u'\u1083\u1004\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1012\u103C\u102D', u'\u1083\u1012\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1015\u103C\u102D', u'\u1083\u1015\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1016\u103C\u102D', u'\u1083\u1016\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1017\u103C\u102D', u'\u1083\u1017\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1019\u103C\u102E', u'\u1083\u1019\u103C\u102D', output)
-    output = re.sub(u'\u103B\u1001\u103C\u102E', u'\u1083\u1001\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1002\u103C\u102E', u'\u1083\u1002\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1004\u103C\u102E', u'\u1083\u1004\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1012\u103C\u102E', u'\u1083\u1012\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1015\u103C\u102E', u'\u1083\u1015\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1016\u103C\u102E', u'\u1083\u1016\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1017\u103C\u102E', u'\u1083\u1017\u103C\u102E', output)
-    output = re.sub(u'\u103B\u1019\u103C\u102E', u'\u1083\u1019\u103C\u102E', output)
+
+    output = re.sub(u'\u103B(\u1001)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1002)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1004)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1012)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1015)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1016)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1017)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
+    output = re.sub(u'\u103B(\u1019)(\u103C)([\u102D\u102e])', u'\u1083\\1\\2', output)
 #---------------yitlay-lonetin-ttt-----------------------------------------------------------------------------------------------------------------------
-    output = re.sub(u'\u103B(\u1001)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1002)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1004)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1012)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1015)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1016)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1017)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
-    output = re.sub(u'\u103B(\u1019)((?:\u1036)?)((?:\u102d)?)((?:\u102e)?)', u'\u107F\\1\\2\\3\\4', output)
+
+    output = re.sub(u'\u103B(\u1001)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1002)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1004)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1012)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1015)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1016)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1017)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
+    output = re.sub(u'\u103B(\u1019)([\u1036\u102d\u102e])', u'\u107F\\1\\2', output)
 #--------------------------yitlay-waswae-----------------------------------------------------------------------------------------
     output = re.sub(u'\u103B\u1001\u103C', u'\u1081\u1001\u103C', output)
     output = re.sub(u'\u103B\u1002\u103C', u'\u1081\u1002\u103C', output)
@@ -196,10 +196,12 @@ def convert(input):
     output = re.sub(u'\u103B\u1016\u103C', u'\u1081\u1016\u103C', output)
     output = re.sub(u'\u103B\u1017\u103C', u'\u1081\u1017\u103C', output)
     output = re.sub(u'\u103B\u1019\u103C', u'\u1081\u1019\u103C', output)
-
+    output = re.sub(u'\u107f([\u1001\u1002\u1004\u1012\u1015\u1016\u1017\u1019])', u'\u103b\\1', output)
     output = re.sub(u'\u1019\u107B\u102c', u'\u1019\u1093\u102c', output)  # ma-ba
     output = re.sub(u'\u1005\u1066\u102c', u'\u1005\u1067\u102c', output)  # sa-sal
     output = re.sub(u'\u1014\u1071\u102c', u'\u108f\u1072\u102c', output)  # na-ta
     # output = re.sub(u'\u1019\u107B\u102c', u'\u1019\u1093\u102c', output)  # ma-ba
+    output = re.sub(u'\u100a(\u108a)', u'\u106b\\1', output)  # nya-swae-htoe
+    output = re.sub(u'(\u1036)(\u102f)', u'\\2\\1', output)
 
     return output
